@@ -1,5 +1,8 @@
 package za.co.sammysa;
 
+import org.junit.Test;
+import static org.junit.Assert.*;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -34,5 +37,12 @@ public class AppTest
     public void testApp()
     {
         assertTrue( true );
+    }
+
+    @Test
+    public void testFindHighestCommonFactor()
+    {
+        int[] numbers = {1, 2, 4, 8, 16};
+        assertEquals(16, App.findHighestCommonFactor(numbers));
     }
 }
