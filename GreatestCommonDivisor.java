@@ -11,10 +11,21 @@ public class GreatestCommonDivisor {
 
     }
 
-    // Static Method that will be used to determine our highest common factor - Assesment Scenario 1
+    // Static Method that will be used to determine our greatest common divisor - Assesment Scenario 1
     public static int commonDivisorCalc(int[] numberArray)
     {
-        int commFact = 0;
+        int commFact = 1; // Starting at 1 to avoid unnecessary iterarions
+        boolean isCommonDivisor = false;
+        int minNumber = Integer.MAX_VALUE; //maximum positive integer value that can be represented
+
+        for(int number : numberArray) // Determine the minimum number in the array
+        {
+            if(number < minNumber)
+            {
+                minNumber = number;
+            }
+        }
+
         /* Step Process
         1.
          */
