@@ -1,4 +1,4 @@
-public class HighestCommonFactorCalc {
+public class GreatestCommonDivisor {
 
     // Main Method that will run
     public static void main(String[] args)
@@ -7,14 +7,17 @@ public class HighestCommonFactorCalc {
 
         // System.out.println("Highest Common Factor Calculator Class"); Initialised to check that our class work!
 
-        System.out.println("The Highest Common Factor is: " + highestCommFactor(suppliedNumbers));
+        System.out.println("The Greatest Common Divisor is: " + commonDivisorCalc(suppliedNumbers));
 
     }
 
     // Static Method that will be used to determine our highest common factor - Assesment Scenario 1
-    public static int highestCommFactor(int[] numberArray)
+    public static int commonDivisorCalc(int[] numberArray)
     {
         int commFact = 0;
+        /* Step Process
+        1.
+         */
 
         return commFact;
     }
