@@ -4,4 +4,4 @@ out/
 investec-addresses/target/
 investec-addresses/target/*
 target/*
-target
+target/

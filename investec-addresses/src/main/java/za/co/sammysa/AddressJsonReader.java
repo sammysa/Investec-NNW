@@ -18,7 +18,7 @@ public class AddressJsonReader
 
     }
 
-    public static <JSONArray> void readJsonFile(String fileName)
+    public static void readJsonFile(String fileName)
     {
         StringBuilder jsonContentBuilder = new StringBuilder();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))){
