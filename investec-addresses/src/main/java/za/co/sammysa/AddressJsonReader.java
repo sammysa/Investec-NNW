@@ -17,7 +17,7 @@ public class AddressJsonReader
 
     }
 
-    public static void readJsonFile(String fileName)
+    public static <JSONArray> void readJsonFile(String fileName)
     {
         StringBuilder jsonContentBuilder = new StringBuilder();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))){
@@ -36,9 +36,9 @@ public class AddressJsonReader
         int index = 0;
         while (index < jsonArray.length())
         {
-            JSONObject address = jsonArray.getJSONObject(index);
+            JSONObject address = jsonArray.getJSONObject(index); //ref to be used when reading JSON file
             System.out.println("Address: " + (index + 1) + ":");
-
+            System.out.println();
             index++;
         }
     }
