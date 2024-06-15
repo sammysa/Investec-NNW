@@ -2,6 +2,7 @@ package za.co.sammysa;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -21,6 +22,7 @@ public class AddressJsonReader
     {
         StringBuilder jsonContentBuilder = new StringBuilder();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))){
+            System.out.println( "Reading File" );
             String line;
             while ((line = bufferedReader.readLine()) != null){
                 jsonContentBuilder.append(line);
@@ -30,10 +32,12 @@ public class AddressJsonReader
             }
 
         // Parse JSON
+        System.out.println( "Parsing JSON Array" );
         JSONArray jsonArray = new JSONArray(jsonContentBuilder.toString());
 
         // Display JSON Contents
         int index = 0;
+        System.out.println( "Displaying JSON Contents" );
         while (index < jsonArray.length())
         {
             JSONObject address = jsonArray.getJSONObject(index); //ref to be used when reading JSON file
