@@ -7,7 +7,7 @@ Assesment Scenarios Detailed Below
    Write a function to return a pretty print version of an address in the format: 
          - Type: Line details - city - province/state - postal code – country
          - Write a function to pretty print all the addresses in the attached file
-         - Write a function to print an address of a certain type (postal, physical, business)
+         - Write a function to print an address of a certain type (postal, physical, business) *** need explanation on this one
          - Write a function to validate an address
          - a. A valid address must consist of a numeric postal code, a country, and at least one address line that is not blank or null.
          - b. If the country is ZA, then a province is required as well.
