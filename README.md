@@ -15,12 +15,5 @@ Assesment Scenarios Detailed Below
 
 Solutions Breakdown
 
-Scenario 1
-Step Process
-1. Find the minimum number in the array
-2. Check the common factor
-3. Return the common factor
-
 Scenario 2
-NOTE: Import JSON JAR into project dependency if it does not update when doing a `mvn clean package`
-Link: https://repo1.maven.org/maven2/org/json/json/20240303/json-20240303.jar
+Refactored the class to use Predicated instead of a number of `if` statements. The intention is to manage control flow explicitly while maintaining cleaner and more concise code.
