@@ -1,5 +1,3 @@
-package za.co.sammysa;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
 
