@@ -22,3 +22,5 @@ Step Process
 3. Return the common factor
 
 Scenario 2
+NOTE: Import JSON JAR into project dependency if it does not update when doing a `mvn clean package`
+Link: https://repo1.maven.org/maven2/org/json/json/20240303/json-20240303.jar

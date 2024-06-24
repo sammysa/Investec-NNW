@@ -37,11 +37,27 @@ public class AddressJsonReader
 
         // Display JSON Contents
         int index = 0;
+        String displayAddressDetail = "";
         System.out.println( "Displaying JSON Contents" );
         while (index < jsonArray.length())
         {
             JSONObject address = jsonArray.getJSONObject(index); //ref to be used when reading JSON file
-            System.out.println("Address: " + (index + 1) + ":");
+
+            if(address.has("addressLineDetail"))
+            {
+                JSONObject addressLineDetail = address.getJSONObject("addressLineDetail");
+                displayAddressDetail = addressLineDetail.getString("line1") + ", " + addressLineDetail.getString("line2")
+                        + " - " + address.getString("cityOrTown");
+            }
+            if(address.has("provinceOrState"))
+            {
+                JSONObject province = address.getJSONObject("provinceOrState");
+                displayAddressDetail = displayAddressDetail.concat(" - ").concat(province.getString("name"));
+
+            }
+            displayAddressDetail = displayAddressDetail.concat(" - ").concat(address.getString("postalCode"));
+
+            System.out.println("Address: " + displayAddressDetail);
             System.out.println();
             index++;
         }
