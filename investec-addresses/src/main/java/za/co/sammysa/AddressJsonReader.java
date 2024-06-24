@@ -14,15 +14,19 @@ public class AddressJsonReader
         System.out.println( "Address File Reader" );
 
         String filePath = "addresses.json";
-        readJsonFile(filePath);
+        readAndJsonAddress(filePath);
 
     }
 
-    public static void readJsonFile(String fileName)
+    public static void readAndJsonAddress(String fileName)
     {
+        int index = 0;
+        String displayAddressDetail = "";
+
         StringBuilder jsonContentBuilder = new StringBuilder();
+
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))){
-            System.out.println( "Reading File" );
+            System.out.println( "Reading JSON File" );
             String line;
             while ((line = bufferedReader.readLine()) != null){
                 jsonContentBuilder.append(line);
@@ -32,17 +36,14 @@ public class AddressJsonReader
             }
 
         // Parse JSON
-        System.out.println( "Parsing JSON Array" );
         JSONArray jsonArray = new JSONArray(jsonContentBuilder.toString());
 
         // Display JSON Contents
-        int index = 0;
-        String displayAddressDetail = "";
-        System.out.println( "Displaying JSON Contents" );
         while (index < jsonArray.length())
         {
             JSONObject address = jsonArray.getJSONObject(index); //ref to be used when reading JSON file
-
+            System.out.println( "---Checking Address---" );
+            validateJsonAddress(address);
             if(address.has("addressLineDetail"))
             {
                 JSONObject addressLineDetail = address.getJSONObject("addressLineDetail");
@@ -58,8 +59,33 @@ public class AddressJsonReader
             displayAddressDetail = displayAddressDetail.concat(" - ").concat(address.getString("postalCode"));
 
             System.out.println("Address: " + displayAddressDetail);
-            System.out.println();
+            //System.out.println();
             index++;
+        }
+    }
+
+    public static void validateJsonAddress(JSONObject address)
+    {
+        /*
+            a. A valid address must consist of a numeric postal code, a country, and at least one address line that is not blank or null.
+            b. If the country is ZA, then a province is required as well.
+         */
+        boolean isValidAddress = true;
+        StringBuilder validateAddressMessage = new StringBuilder("Invalid Address - Reason: ");
+
+        String postalCode = address.getString("postalCode");
+        if(!postalCode.matches("\\d+"))
+        {
+            isValidAddress = false;
+            validateAddressMessage.append("The postal code is not numeric.");
+        }
+
+        if(isValidAddress)
+        {
+            System.out.println("Valid Address Examined");
+        }else
+        {
+            System.out.println(validateAddressMessage.toString());
         }
     }
 }
