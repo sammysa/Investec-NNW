@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.function.Predicate;
 
 public class AddressJsonReader
 {
@@ -66,25 +67,54 @@ public class AddressJsonReader
 
     public static void validateJsonAddress(JSONObject address)
     {
+        StringBuilder validateAddressMessage = new StringBuilder("Address Is Invalid. Reason: ");
+        boolean isValidAddress = true;
         /*
-            a. A valid address must consist of a numeric postal code, a country, and at least one address line that is not blank or null.
+            a. A valid address must consist of a numeric postal code,
+            a country,
+            and at least one address line that is not blank or null.
             b. If the country is ZA, then a province is required as well.
          */
-        boolean isValidAddress = true;
-        StringBuilder validateAddressMessage = new StringBuilder("Invalid Address - Reason: ");
+        Predicate<String> isNumericPostalCd = str -> str.matches("\\d+");
+        Predicate<JSONObject> checkEmptyCountry = country -> country.getString("name").isEmpty() &&
+                !country.getString("code").isEmpty();
+        Predicate<JSONObject> hasValidAddressLine = addressLine -> addressLine.has("addressLineDetail") &&
+                !addressLine.getJSONObject("addressLineDetail").getString("line1").isEmpty();
+        Predicate<JSONObject> provinceZAChek = addressLine -> addressLine.getJSONObject("country").getString("code")
+                .equals("ZA") || addressLine.has("provinceOrState");
 
-        String postalCode = address.getString("postalCode");
-        if(!postalCode.matches("\\d+"))
+        String postalCd = address.getString("postalCode");
+        JSONObject country = address.getJSONObject("country");
+
+        //If any of these conditions fail, the address is Invalid
+        isValidAddress = isNumericPostalCd.test(postalCd)
+                && checkEmptyCountry.test(country)
+                && hasValidAddressLine.test(address)
+                && provinceZAChek.test(address);
+
+        //Validation Checks
+        if(!isNumericPostalCd.test(postalCd))
         {
-            isValidAddress = false;
-            validateAddressMessage.append("The postal code is not numeric.");
+            validateAddressMessage.append("Postal Code Is Not Numeric.");
+        }
+        if(!checkEmptyCountry.test(country))
+        {
+            validateAddressMessage.append("Country is empty.");
+        }
+        if(!hasValidAddressLine.test(address))
+        {
+            validateAddressMessage.append("Address Line Is Invalid/Empty.");
+        }
+        if(!provinceZAChek.test(address))
+        {
+            validateAddressMessage.append("Province is required for country code ZA.");
         }
 
+        // Display valid message if isValid fails
         if(isValidAddress)
         {
             System.out.println("Valid Address Examined");
-        }else
-        {
+        }else{
             System.out.println(validateAddressMessage.toString());
         }
     }
