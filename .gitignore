@@ -1,4 +1,6 @@
 .idea
+.idea/
+.DS_Store
 out/*
 out/
 investec-addresses/target/
